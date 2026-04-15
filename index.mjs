@@ -6,15 +6,28 @@
 // INSERT INTO seats (isbooked)
 // SELECT 0 FROM generate_series(1, 20);
 
-import express from "express";
-import pg from "pg";
+import "dotenv/config";
+import { app } from "./src/app.js";
+
+const port = process.env.PORT || 8080;
+
+const start = async () => {
+  app.listen(PORT, () => {
+    console.log(`server is started at the port:${PORT} in ${process.env.NODE_ENV} mode`)
+  });
+}; 
+
+start().catch((error) => {
+  console.error("Failed to start server",error)
+  process.exit(1)
+})
+
+
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 import cors from "cors";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-
-const port = process.env.PORT || 8080;
 
 // Equivalent to mongoose connection
 // Pool is nothing but group of connections
