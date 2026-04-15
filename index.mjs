@@ -7,13 +7,19 @@
 // SELECT 0 FROM generate_series(1, 20);
 
 import "dotenv/config";
-import { app } from "./src/app.js";
+import app from "./src/app.js";
 
 const port = process.env.PORT || 8080;
 
 const start = async () => {
+  // We will connect to the database here later!
+
+  await connectDB();
+  
   app.listen(PORT, () => {
-    console.log(`server is started at the port:${PORT} in ${process.env.NODE_ENV} mode`)
+    console.log(
+      `server is started at the port:${PORT} in ${process.env.NODE_ENV} mode`,
+    );
   });
 }; 
 
@@ -95,5 +101,5 @@ app.put("/:id/:name", async (req, res) => {
     res.send(500);
   }
 });
-
+ 
 app.listen(port, () => console.log("Server starting on port: " + port));
